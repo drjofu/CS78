@@ -9,7 +9,7 @@ namespace CS78
   {
     static async Task Main(string[] args)
     {
-      //Tuples();
+      Tuples();
       //PatternMatching();
       //RefPointer();
       //SpanOfT();
@@ -20,7 +20,7 @@ namespace CS78
       //await AsyncEnumerables();
       //IndicesAndRanges();
       //NullCoalescingAssignment();
-      StackAllocSpan();
+      ///StackAllocSpan();
       //Console.ReadLine();
     }
 
