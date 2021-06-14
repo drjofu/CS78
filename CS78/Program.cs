@@ -18,7 +18,7 @@ namespace CS78
       //CS8Pattern();
       //UsingDeclarations();
       //await AsyncEnumerables();
-      //IndicesAndRanges();
+      IndicesAndRanges();
       //NullCoalescingAssignment();
       StackAllocSpan();
       //Console.ReadLine();
@@ -45,6 +45,7 @@ namespace CS78
       string[] farben = { "rot", "grün", "blau", "gelb", "lila" };
       Console.WriteLine(farben[^1]);
       Index a = ^2;
+      
       Console.WriteLine(farben[a]);
       Index b = 2;
       Console.WriteLine(farben[b]);
@@ -77,9 +78,19 @@ namespace CS78
       Console.WriteLine("Hallo Welt"[6..]);
       ReadOnlySpan<char> text = "Hallo Welt";
       Console.WriteLine(text[2..8].ToString());
-
+      //text[0] = 'x';
       Console.WriteLine("Hallo Welt"[^3..^0]);
 
+      // Vermeiden von Garbage
+      string t = "x;y;100";
+      // normal z. B. mit string.Substring oder string.Split etc.
+      // ohne Heap-Alloc:
+      int index = t.LastIndexOf(';');
+      ReadOnlySpan<char> chars = t;
+      var zahlenwert = chars[(index + 1)..];
+      var wert = int.Parse(zahlenwert);
+
+      
     }
 
     private static async Task AsyncEnumerables()
@@ -123,8 +134,8 @@ namespace CS78
       var fzg2 = new Fahrzeug { Farbe = "Metallic", AllInPaket = false };
       var fzg3 = new Fahrzeug { Farbe = "Metallic", AllInPaket = true };
 
-      Console.WriteLine(GetPreis3(30000, fzg1));
-      Console.WriteLine(GetPreis3(30000, fzg2));
+      Console.WriteLine(GetPreis(30000, fzg1));
+      Console.WriteLine(GetPreis2(30000, fzg2));
       Console.WriteLine(GetPreis3(30000, fzg3));
 
       static decimal GetPreis(decimal basispreis, Fahrzeug fzg) =>
@@ -232,6 +243,9 @@ namespace CS78
           Console.WriteLine("Default");
           break;
       }
+
+      if(obj is Artikel { Preis: 5000,Bezeichnung: var bez})
+        Console.WriteLine(bez);
     }
 
     private static void Tuples()
