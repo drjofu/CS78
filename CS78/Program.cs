@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,7 +11,7 @@ namespace CS78
   {
     static async Task Main(string[] args)
     {
-      Tuples();
+      //Tuples();
       //PatternMatching();
       //RefPointer();
       //SpanOfT();
@@ -19,9 +21,9 @@ namespace CS78
       //UsingDeclarations();
       //await AsyncEnumerables();
       IndicesAndRanges();
-      //NullCoalescingAssignment();
-      ///StackAllocSpan();
-      //Console.ReadLine();
+      NullCoalescingAssignment();
+      //StackAllocSpan();
+      Console.ReadLine();
     }
 
     private static void StackAllocSpan()
@@ -50,7 +52,7 @@ namespace CS78
       Index b = 2;
       Console.WriteLine(farben[b]);
       Console.WriteLine("---");
-      foreach (var farbe in farben[2..^0])
+      foreach (var farbe in farben[3..^0])
       {
         Console.WriteLine(farbe);
       }
@@ -65,6 +67,12 @@ namespace CS78
       r = ..3;
       r = 2..;
 
+      //r = ^1..1;
+      //var daten = farben[r];
+
+      Console.WriteLine("******************");
+      var liste = new List<string>(farben);
+      Console.WriteLine(liste[a]);
 
       Console.WriteLine(a);
       Console.WriteLine(b);
@@ -95,6 +103,19 @@ namespace CS78
 
     private static async Task AsyncEnumerables()
     {
+      IEnumerator<char> enumerator = "awdf".GetEnumerator();
+      while(enumerator.MoveNext())
+      {
+        Console.WriteLine(enumerator.Current);
+      }
+      
+      var asyncenumerator = GetStrings().GetAsyncEnumerator();
+      while(await asyncenumerator.MoveNextAsync())
+      {
+        Console.WriteLine(asyncenumerator.Current);
+
+      }
+
       await foreach (var text in GetStrings())
       {
         Console.WriteLine(text);
